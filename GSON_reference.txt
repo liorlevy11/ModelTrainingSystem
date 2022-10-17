@@ -1,0 +1,42 @@
+import com.google.gson.Gson;
+
+import java.io.*;
+
+public class ExampleJSON {
+    public static void main(String[] args) {
+        Gson gson = new Gson();
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader("C://example.json"));
+            User[] finalData = gson.fromJson(bufferedReader, User[].class);
+
+            for (int i = 0; i < finalData.length; i++) {
+                System.out.println(finalData[i].getId());
+                for (int j = 0; j < finalData[i].getFriends().size(); j++) {
+                    System.out.println("id : " + finalData[i].getFriends().get(j).getId() + " name : " + finalData[i].getFriends().get(j).getName());
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+Remember to replace the location of the .json file in the FileReader constructor.
+
+If you run the above program, it will print the below output :
+
+5c076be16f76894c3ffc838b
+id : 0 name : Clayton Perry
+id : 1 name : Willa Moore
+5c076be1a83a0d7df1b9750e
+id : 0 name : Sanders Wilcox
+id : 1 name : Orr White
+It printed out the contents of the example.json file.
+
+
